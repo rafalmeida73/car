@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 
 import { FormHandles } from "@unform/core";
+import { useRouter } from "expo-router";
 import { Keyboard, TextInput } from "react-native";
 import { Button } from "react-native-paper";
 
@@ -22,6 +23,7 @@ import {
 export default function Page() {
   const formRef = useRef<FormHandles>(null);
   const passwordInputRef = useRef<TextInput>(null);
+  const router = useRouter();
 
   const [keep, setKeep] = useState(false);
 
@@ -63,7 +65,8 @@ export default function Page() {
 
         <Button
           mode="contained"
-          onPress={() => formRef.current.submitForm()}
+          // onPress={() => formRef.current.submitForm()}
+          onPress={() => router.push("cars")}
           testID="Login-Form-Button"
         >
           Entrar

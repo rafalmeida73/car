@@ -19,6 +19,8 @@ export default function Layout() {
           }}
         >
           <Stack.Screen name="index" />
+          <Stack.Screen name="cars/index" />
+          <Stack.Screen name="car/index" />
         </Stack>
       </PaperProvider>
     </ThemeProvider>

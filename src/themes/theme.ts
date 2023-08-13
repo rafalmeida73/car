@@ -3,6 +3,7 @@ const styledComponentsTheme = {
     text: {
       black: "#000000",
       gray: "#A8AFB9",
+      white: "#FFFFFF",
     },
     background: {
       primary: "#FF5C00",
