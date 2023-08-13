@@ -1,8 +1,5 @@
 import React from "react";
 
-import { useRouter } from "expo-router";
-import { Appbar } from "react-native-paper";
-
 import { CarCard } from "../../components/CarCard";
 import { Header } from "../../components/Header";
 

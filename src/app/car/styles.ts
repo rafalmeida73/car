@@ -1,6 +1,9 @@
+import MapView from "react-native-maps";
 import { scale } from "react-native-size-matters";
 import Video from "react-native-video";
 import styled, { css } from "styled-components/native";
+
+import { VideoStylesProps } from "./types";
 
 export const Container = styled.ScrollView`
   flex: 1;
@@ -67,11 +70,21 @@ export const SectionTitle = styled.Text`
   font-weight: bold;
 `;
 
-export const VideoPlayer = styled(Video)`
+export const VideoPlayer = styled(Video)<VideoStylesProps>`
   top: 0;
   left: 15%;
   bottom: 0;
   right: 0;
-  height: ${scale(150)}px;
   width: ${scale(300)}px;
+
+  ${({ hasVideo }) =>
+    hasVideo &&
+    css`
+      height: ${scale(150)}px;
+    `}
+`;
+
+export const Map = styled(MapView)`
+  width: 100%;
+  height: ${scale(500)}px;
 `;

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { useLocalSearchParams } from "expo-router";
-import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
+import { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 
 import { CarCardProps } from "../../components/CarCard/types";
 import { Header } from "../../components/Header";
@@ -16,6 +16,7 @@ import {
   VideoContainer,
   SectionTitle,
   VideoPlayer,
+  Map,
 } from "./styles";
 
 export default function Car() {
@@ -50,26 +51,24 @@ export default function Car() {
 
         <SectionTitle>Localização </SectionTitle>
 
-        <MapView
-          provider={PROVIDER_GOOGLE}
-          style={{
-            width: "100%",
-            height: 500,
-          }}
-          initialRegion={{
-            latitude: latitudeFormatted,
-            longitude: longitudeFormatted,
-            latitudeDelta: 0.015,
-            longitudeDelta: 0.0121,
-          }}
-        >
-          <Marker
-            coordinate={{
+        {latitude && longitude && (
+          <Map
+            provider={PROVIDER_GOOGLE}
+            initialRegion={{
               latitude: latitudeFormatted,
               longitude: longitudeFormatted,
+              latitudeDelta: 0.015,
+              longitudeDelta: 0.0121,
             }}
-          />
-        </MapView>
+          >
+            <Marker
+              coordinate={{
+                latitude: latitudeFormatted,
+                longitude: longitudeFormatted,
+              }}
+            />
+          </Map>
+        )}
 
         <VideoContainer>
           {!loadingVideo && <SectionTitle>Video</SectionTitle>}
@@ -82,6 +81,7 @@ export default function Car() {
             onLoad={() => {
               setLoadingVideo(false);
             }}
+            hasVideo={!loadingVideo}
           />
         </VideoContainer>
       </Container>
