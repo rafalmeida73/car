@@ -4,7 +4,7 @@ import { act, cleanup, fireEvent, render } from "@testing-library/react-native";
 
 import InputText from ".";
 import { makeThemeProvider } from "../../utils/jestFunctions/mockThemeProvider";
-// aaa
+
 let mockError = "";
 const mockClearError = jest.fn();
 jest.mock("@unform/core", () => ({
