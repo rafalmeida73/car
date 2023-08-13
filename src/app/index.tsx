@@ -3,11 +3,14 @@ import React, { useRef, useState } from "react";
 import { FormHandles } from "@unform/core";
 import { useRouter } from "expo-router";
 import { Keyboard, TextInput } from "react-native";
-import { Button } from "react-native-paper";
+import { Button, Chip } from "react-native-paper";
+import * as Yup from "yup";
 
 import { Checkbox } from "../components/Checkbox";
 import Input from "../components/Input";
 import { Logo } from "../components/Logo";
+import { useCars } from "../logic/useCars";
+import { schema } from "../utils/home/validations";
 
 import {
   Container,
@@ -26,16 +29,51 @@ export default function Page() {
   const router = useRouter();
 
   const [keep, setKeep] = useState(false);
+  const [loginError, setLoginError] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const { login } = useCars();
 
   const handleSubmit = async (formData) => {
     Keyboard.dismiss();
-    console.log(formData);
+    setLoginError(false);
+    setLoading(true);
+
+    try {
+      formRef.current.setErrors({});
+
+      await schema.validate(formData, {
+        abortEarly: false,
+      });
+
+      await login({
+        username: formData.login,
+        password: formData.password,
+        keepConnected: keep,
+      });
+
+      router.push("cars");
+    } catch (err) {
+      const validationErrors = {};
+      if (err instanceof Yup.ValidationError) {
+        err.inner.forEach((error) => {
+          validationErrors[error.path] = error.message;
+        });
+
+        return formRef?.current?.setErrors(validationErrors);
+      }
+
+      setLoginError(true);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <Container>
       <Logo />
       <FormContainer ref={formRef} onSubmit={handleSubmit}>
+        {loginError && <Chip icon="information">Login incorreto</Chip>}
         <Input
           name="login"
           placeholder="Login"
@@ -65,9 +103,9 @@ export default function Page() {
 
         <Button
           mode="contained"
-          // onPress={() => formRef.current.submitForm()}
-          onPress={() => router.push("cars")}
+          onPress={() => formRef.current.submitForm()}
           testID="Login-Form-Button"
+          loading={loading}
         >
           Entrar
         </Button>

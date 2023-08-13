@@ -20,6 +20,9 @@ export const CarCard: React.FC<CarCardProps> = ({
 
   const [imageCar, setImageCar] = useState(photo);
 
+  const imageError =
+    "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png";
+
   const handlePress = () => {
     push({
       pathname: `/car`,
@@ -39,12 +42,8 @@ export const CarCard: React.FC<CarCardProps> = ({
   return (
     <Container onPress={() => handlePress()}>
       <CarImage
-        source={{ uri: imageCar }}
-        onError={() =>
-          setImageCar(
-            "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png",
-          )
-        }
+        source={{ uri: imageCar || imageError }}
+        onError={() => setImageCar(imageError)}
         resizeMode="contain"
       />
       <Title>{name}</Title>

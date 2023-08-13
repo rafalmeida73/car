@@ -8,12 +8,11 @@ import React, {
 
 import Icon from "@expo/vector-icons/FontAwesome";
 import { useField } from "@unform/core";
-import { Text } from "react-native";
 import { useTheme } from "styled-components/native";
 
 import { InputProps } from "./types";
 
-import { Container, IconContainer, InputText } from "./styles";
+import { Container, ErrorText, IconContainer, InputText } from "./styles";
 
 interface InputRef {
   focus(): void;
@@ -90,7 +89,8 @@ const Input = React.forwardRef<InputRef, InputProps>(
           value={value}
           {...rest}
         />
-        {error && <Text>{error}</Text>}
+
+        {error && <ErrorText>{error}</ErrorText>}
       </Container>
     );
   },

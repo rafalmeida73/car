@@ -68,6 +68,7 @@ export const SectionTitle = styled.Text`
   text-transform: capitalize;
   margin: ${scale(15)}px 0;
   font-weight: bold;
+  padding-left: ${scale(5)}px;
 `;
 
 export const VideoPlayer = styled(Video)<VideoStylesProps>`

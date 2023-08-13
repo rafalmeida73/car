@@ -30,3 +30,12 @@ export const IconContainer = styled.View`
   left: ${scale(15)}px;
   top: ${scale(16)}px;
 `;
+
+export const ErrorText = styled.Text`
+  ${({ theme }) => css`
+    color: ${theme.colors.status.error};
+  `}
+
+  font-size: ${scale(12)}px;
+  margin-top: ${scale(5)}px;
+`;

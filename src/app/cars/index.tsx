@@ -1,50 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
+
+import { useRouter } from "expo-router";
 
 import { CarCard } from "../../components/CarCard";
 import { Header } from "../../components/Header";
+import { useCars } from "../../logic/useCars";
 
 import { Container, List, Separator } from "./styles";
 
-const initialCategories = [
-  {
-    id: 13381,
-    nome: "Maserati Grancabrio",
-    tipo: "classicos",
-    descricao: "Maserati Grancabrio",
-    urlFoto:
-      "https://s3-sa-east-1.amazonaws.com/videos.livetouchdev.com.br/esportivos/Maserati_Grancabrio_Sport.png",
-    urlVideo:
-      "https://s3-sa-east-1.amazonaws.com/videos.livetouchdev.com.br/esportivos/renault_megane.mp4",
-    latitude: "-23.564224",
-    longitude: "-46.653156",
-  },
-  {
-    id: 13381,
-    nome: "Maserati Grancabrio",
-    tipo: "classicos",
-    descricao: "Maserati Grancabrio",
-    urlFoto:
-      "https://s3-sa-east-1.amazonaws.com/videos.livetouchdev.com.br/esportivos/Maserati_Grancabrio_Sport.png",
-    urlVideo:
-      "https://s3-sa-east-1.amazonaws.com/videos.livetouchdev.com.br/esportivos/renault_megane.mp4",
-    latitude: "-23.564224",
-    longitude: "-46.653156",
-  },
-  {
-    id: 13381,
-    nome: "Maserati Grancabrio",
-    tipo: "classicos",
-    descricao: "Maserati Grancabrio",
-    urlFoto:
-      "https://s3-sa-east-1.amazonaws.com/videos.livetouchdev.com.br/esportivos/Maserati_Grancabrio_Sport.png",
-    urlVideo:
-      "https://s3-sa-east-1.amazonaws.com/videos.livetouchdev.com.br/esportivos/renault_megane.mp4",
-    latitude: "-23.564224",
-    longitude: "-46.653156",
-  },
-];
-
 export default function Cars() {
+  const { logout, cars, loadCars } = useCars();
+  const router = useRouter();
+
+  useEffect(() => {
+    loadCars();
+  }, [loadCars]);
+
   return (
     <>
       <Header
@@ -52,13 +23,16 @@ export default function Cars() {
         icons={[
           {
             name: "arrow-collapse-right",
-            onPress: () => {},
+            onPress: async () => {
+              await logout();
+              router.push("/");
+            },
           },
         ]}
       />
       <Container>
         <List
-          data={initialCategories}
+          data={cars}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
             <CarCard

@@ -6,15 +6,11 @@ import { Appbar } from "react-native-paper";
 import { HeaderProps } from "./types";
 
 export const Header: React.FC<HeaderProps> = ({ title, icons }) => {
-  const { back } = useRouter();
+  const { back, canGoBack } = useRouter();
 
   return (
     <Appbar.Header>
-      <Appbar.BackAction
-        onPress={() => {
-          back();
-        }}
-      />
+      {canGoBack() && <Appbar.BackAction onPress={() => back()} />}
       <Appbar.Content title={title} />
       {icons &&
         icons.map((icon) => (

@@ -11,9 +11,7 @@ const styledComponentsTheme = {
       light: "#FFFFFF",
     },
     status: {
-      high: "#48D0B0",
-      low: "#FB6C6C",
-      total: "#4BC07A",
+      error: "#FB6C6C",
     },
   },
 };
