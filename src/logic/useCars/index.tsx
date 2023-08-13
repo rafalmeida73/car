@@ -36,6 +36,7 @@ const CarsProvider: React.FC<UseCarsProvider> = ({ children }) => {
         }
         setToken(response?.data?.token);
       } catch (error) {
+        console.error(error);
         throw new Error("Error on login");
       }
     },

@@ -52,6 +52,11 @@ export default function Page() {
         keepConnected: keep,
       });
 
+      formRef.current.clearField("password");
+      formRef.current.clearField("login");
+
+      setKeep(false);
+
       router.push("cars");
     } catch (err) {
       const validationErrors = {};
@@ -94,6 +99,7 @@ export default function Page() {
           autoCapitalize="none"
           autoCorrect={false}
           icon="lock"
+          isPassword
         />
 
         <OptionsContainer>

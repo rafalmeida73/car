@@ -40,13 +40,14 @@ export const CarCard: React.FC<CarCardProps> = ({
   };
 
   return (
-    <Container onPress={() => handlePress()}>
+    <Container onPress={() => handlePress()} testID="CarCard-Card">
       <CarImage
         source={{ uri: imageCar || imageError }}
         onError={() => setImageCar(imageError)}
         resizeMode="contain"
+        testID="CarCard-Image"
       />
-      <Title>{name}</Title>
+      <Title testID="CarCard-Title">{name}</Title>
     </Container>
   );
 };

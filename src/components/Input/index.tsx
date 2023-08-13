@@ -12,18 +12,25 @@ import { useTheme } from "styled-components/native";
 
 import { InputProps } from "./types";
 
-import { Container, ErrorText, IconContainer, InputText } from "./styles";
+import {
+  Container,
+  ErrorText,
+  IconContainer,
+  InputText,
+  PasswordIcon,
+} from "./styles";
 
 interface InputRef {
   focus(): void;
 }
 
 const Input = React.forwardRef<InputRef, InputProps>(
-  ({ name, onChangeText, icon, ...rest }, ref) => {
+  ({ name, onChangeText, icon, isPassword = false, ...rest }, ref) => {
     const inputRef = useRef(null);
     const theme = useTheme();
 
     const [value, setValue] = useState("");
+    const [passwordVisible, setPasswordVisible] = useState(true);
 
     const { fieldName, registerField, defaultValue, error } = useField(name);
 
@@ -87,8 +94,24 @@ const Input = React.forwardRef<InputRef, InputProps>(
           hasIcon={!!icon}
           testID="TextInput"
           value={value}
+          secureTextEntry={isPassword ? passwordVisible : false}
+          autoCapitalize={isPassword ? "none" : "words"}
           {...rest}
         />
+
+        {isPassword && (
+          <PasswordIcon
+            onPress={() => setPasswordVisible(!passwordVisible)}
+            testID="Passoword-Button-Icon"
+          >
+            <Icon
+              name={passwordVisible ? "eye" : "eye-slash"}
+              size={20}
+              color={theme.colors.text.gray}
+              testID="Passoword-Icon"
+            />
+          </PasswordIcon>
+        )}
 
         {error && <ErrorText>{error}</ErrorText>}
       </Container>

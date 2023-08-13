@@ -8,3 +8,20 @@ jest.mock("react-native-paper", () => {
   };
   return MockedModule;
 });
+
+jest.mock("expo-secure-store", () => jest.fn());
+
+export const mockPush = jest.fn();
+export const mockBack = jest.fn();
+jest.mock("expo-router", () => {
+  return {
+    useRouter: () => ({
+      push: mockPush,
+      canGoBack: () => true,
+      back: mockBack,
+    }),
+  };
+});
+
+jest.mock("react-native-video", () => "ReactNativeVideo");
+jest.mock("expo-constants", () => 10);

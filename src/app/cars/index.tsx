@@ -47,7 +47,10 @@ export default function Cars() {
             />
           )}
           showsVerticalScrollIndicator={false}
-          ItemSeparatorComponent={() => <Separator />}
+          ItemSeparatorComponent={() => (
+            <Separator testID="Cars-FlatList-Separator" />
+          )}
+          testID="Cars-FlatList"
         />
       </Container>
     </>

@@ -4,7 +4,7 @@ import { act, cleanup, fireEvent, render } from "@testing-library/react-native";
 
 import InputText from ".";
 import { makeThemeProvider } from "../../utils/jestFunctions/mockThemeProvider";
-
+// aaa
 let mockError = "";
 const mockClearError = jest.fn();
 jest.mock("@unform/core", () => ({
@@ -80,5 +80,20 @@ describe("InputText Component", () => {
     const inputChange = getByTestId("TextInput").props;
 
     expect(inputChange.value).toBe(newValue);
+  });
+  it("Should be able press password icon", () => {
+    const { getByTestId } = render(<InputText name="test" isPassword />, {
+      wrapper: makeThemeProvider,
+    });
+
+    const button = getByTestId("Passoword-Button-Icon");
+
+    act(() => {
+      fireEvent.press(button);
+    });
+
+    const icon = getByTestId("Passoword-Icon").props;
+
+    expect(icon.name).toBe("eye-slash");
   });
 });

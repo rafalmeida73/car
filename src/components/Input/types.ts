@@ -5,6 +5,7 @@ export interface InputProps extends TextInputProps {
   name: string;
   onChangeText?: (value: string) => void;
   icon?: keyof typeof FontAwesome.glyphMap;
+  isPassword?: boolean;
 }
 
 export interface InputStylesProps {

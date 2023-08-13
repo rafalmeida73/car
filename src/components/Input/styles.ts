@@ -31,6 +31,13 @@ export const IconContainer = styled.View`
   top: ${scale(16)}px;
 `;
 
+export const PasswordIcon = styled.TouchableOpacity`
+  position: absolute;
+  z-index: 1;
+  right: ${scale(15)}px;
+  top: ${scale(16)}px;
+`;
+
 export const ErrorText = styled.Text`
   ${({ theme }) => css`
     color: ${theme.colors.status.error};

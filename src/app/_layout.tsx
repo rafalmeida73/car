@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { Stack } from "expo-router";
+import { SplashScreen, Stack } from "expo-router";
 import * as SecureStore from "expo-secure-store";
 import { Provider as PaperProvider } from "react-native-paper";
 import { ThemeProvider } from "styled-components";
@@ -13,12 +13,19 @@ export default function Layout() {
   const [isUserAuthenticated, setIsUserAuthenticated] = useState<
     null | boolean
   >(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     SecureStore.getItemAsync("token").then((token) => {
       setIsUserAuthenticated(!!token);
     });
+    setLoading(false);
   }, []);
+
+  if (loading) {
+    SplashScreen.preventAutoHideAsync();
+  }
 
   return (
     <CarsProvider>

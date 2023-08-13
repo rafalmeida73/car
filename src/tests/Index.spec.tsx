@@ -2,8 +2,8 @@ import React from "react";
 
 import { act, cleanup, fireEvent, render } from "@testing-library/react-native";
 
-import Page from "../../../src/app";
-import { makeThemeProvider } from "../../utils/jestFunctions/mockThemeProvider";
+import Page from "../app";
+import { makeThemeProvider } from "../utils/jestFunctions/mockThemeProvider";
 
 describe("Login Page", () => {
   afterEach(cleanup);
@@ -22,9 +22,8 @@ describe("Login Page", () => {
 
     const input = getAllByTestId("TextInput")[0];
 
-    fireEvent.changeText(input, "user");
-
     act(() => {
+      fireEvent.changeText(input, "user");
       input.props.onSubmitEditing();
     });
   });
@@ -33,12 +32,13 @@ describe("Login Page", () => {
       wrapper: makeThemeProvider,
     });
 
-    const input = getAllByTestId("TextInput")[1];
-
-    fireEvent.changeText(input, "password");
+    const input = getAllByTestId("TextInput")[0];
+    const passwordInput = getAllByTestId("TextInput")[1];
 
     act(() => {
-      input.props.onSubmitEditing();
+      fireEvent.changeText(input, "user");
+      fireEvent.changeText(passwordInput, "123");
+      passwordInput.props.onSubmitEditing();
     });
   });
   it("Should be submit form when button is clicked", async () => {
@@ -48,6 +48,8 @@ describe("Login Page", () => {
 
     const submitButton = getByTestId("Login-Form-Button");
 
-    fireEvent.press(submitButton);
+    act(() => {
+      fireEvent.press(submitButton);
+    });
   });
 });
