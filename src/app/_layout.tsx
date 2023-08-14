@@ -10,23 +10,6 @@ import { reactNativePaperTheme } from "../themes/paperTheme";
 import styledComponentsTheme from "../themes/theme";
 
 export default function Layout() {
-  const [isUserAuthenticated, setIsUserAuthenticated] = useState<
-    null | boolean
-  >(null);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    setLoading(true);
-    SecureStore.getItemAsync("token").then((token) => {
-      setIsUserAuthenticated(!!token);
-    });
-    setLoading(false);
-  }, []);
-
-  if (loading) {
-    SplashScreen.preventAutoHideAsync();
-  }
-
   return (
     <CarsProvider>
       <ThemeProvider theme={styledComponentsTheme}>
@@ -38,7 +21,7 @@ export default function Layout() {
               animation: "fade",
             }}
           >
-            <Stack.Screen name="index" redirect={isUserAuthenticated} />
+            <Stack.Screen name="index" />
             <Stack.Screen name="cars/index" />
             <Stack.Screen name="car/index" />
           </Stack>
