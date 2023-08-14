@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import { useRouter } from "expo-router";
+import { useNavigation, useRouter } from "expo-router";
 
 import { CarCard } from "../../components/CarCard";
 import { Header } from "../../components/Header";
@@ -11,10 +11,21 @@ import { Container, List, Separator } from "./styles";
 export default function Cars() {
   const { logout, cars, loadCars } = useCars();
   const router = useRouter();
+  const navigation = useNavigation();
 
   useEffect(() => {
     loadCars();
   }, [loadCars]);
+
+  useEffect(() => {
+    navigation.addListener("beforeRemove", (e) => {
+      e.preventDefault();
+      if (e?.data?.action?.type === "GO_BACK") {
+        return;
+      }
+      navigation.dispatch(e.data.action);
+    });
+  }, [navigation]);
 
   return (
     <>
@@ -29,6 +40,7 @@ export default function Cars() {
             },
           },
         ]}
+        backIcon={false}
       />
       <Container>
         <List

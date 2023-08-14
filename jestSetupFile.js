@@ -20,6 +20,9 @@ jest.mock("expo-router", () => {
       canGoBack: () => true,
       back: mockBack,
     }),
+    useNavigation: () => ({
+      addListener: jest.fn(),
+    }),
   };
 });
 

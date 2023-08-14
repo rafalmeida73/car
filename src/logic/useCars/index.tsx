@@ -6,6 +6,7 @@ import React, {
   useEffect,
 } from "react";
 
+import { router } from "expo-router";
 import * as SecureStore from "expo-secure-store";
 
 import { api } from "../../services/api";
@@ -69,6 +70,9 @@ const CarsProvider: React.FC<UseCarsProvider> = ({ children }) => {
   useEffect(() => {
     SecureStore.getItemAsync("token").then((token) => {
       setToken(token);
+      if (token) {
+        router.replace("/cars");
+      }
     });
   }, []);
 

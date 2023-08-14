@@ -4,4 +4,5 @@ export interface HeaderProps {
     name: string;
     onPress: () => void;
   }>;
+  backIcon?: boolean;
 }

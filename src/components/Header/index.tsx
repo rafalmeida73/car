@@ -13,13 +13,17 @@ import {
   Title,
 } from "./styles";
 
-export const Header: React.FC<HeaderProps> = ({ title, icons }) => {
+export const Header: React.FC<HeaderProps> = ({
+  title,
+  icons,
+  backIcon = true,
+}) => {
   const { back, canGoBack } = useRouter();
 
   return (
     <Container>
       <InfosContainer>
-        {canGoBack() && (
+        {canGoBack() && backIcon && (
           <BackButton
             icon="arrow-left"
             size={scale(25)}
